@@ -8,8 +8,11 @@ página de contactos.
   **italiano**, los precios en **euros con formato italiano** (`1.250,00 €`, `Intl` con `it-IT`).
 - **Datos:** 100 % ficticios (12 productos). No se usan nombres de tests reales ni material protegido.
 - **Repositorios:** esta es la **Versión A (Next.js)**. La Versión B (Laravel) vive en un repositorio
-  **separado**: `<URL del repo giunti-psychometrics-landing-laravel>`. La Versión B replica el home y
-  `/contatti` de esta versión con la misma tipografía, tamaños y colores.
+  **separado**: https://github.com/OsantiagoPerezE/giunti-psychometrics-landing-laravel. La Versión B
+  replica el home y `/contatti` de esta versión con la misma tipografía, tamaños y colores.
+- **Demo en producción:**
+  - Versión A (Next.js): https://giunti-psychometrics-landing-nextjs.vercel.app/
+  - Versión B (Laravel): https://giunti-psychometrics-landing-larave-six.vercel.app/
 
 ## Índice
 
@@ -319,8 +322,10 @@ error, y datos estructurados en la ficha.
 
 ## Despliegue y notas
 
-- URL pública: _por completar (opcional, punto extra)_. Es un proyecto Next.js estándar, desplegable en
-  Vercel sin configuración adicional.
+- URL pública: https://giunti-psychometrics-landing-nextjs.vercel.app/
+- Desplegado en **Vercel** como proyecto Next.js estándar, sin configuración adicional ni variables de
+  entorno. Está conectado al repositorio de GitHub: cada push a `main` genera un nuevo despliegue de
+  producción.
 - Next.js muestra un aviso si hay un `yarn.lock` fuera del repositorio; es inofensivo y se silencia con
   `turbopack.root` en `next.config.ts`.
 - El archivo `AGENTS.md` lo genera la plantilla de Next.js (instrucciones para agentes de IA); se puede
