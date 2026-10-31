@@ -1,26 +1,255 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 80rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-primary: #1b4f8a;
+  --color-ink: #0f2d52;
+  --color-accent: #0ea5e9;
+  --color-surface: #eff6ff;
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable;
+  }
+
+  button:not(:disabled),
+  [role="button"],
+  summary,
+  select,
+  label[for],
+  a[href] {
+    cursor: pointer;
+  }
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-menu-in {
+  animation: menu-in 180ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-menu-in {
+    animation: none;
+  }
+}
+
+@keyframes search-in {
+  from {
+    opacity: 0;
+    transform: translateX(120px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.search-modal[open],
+.filters-modal[open] {
+  animation: search-in 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform-origin: 100% 0;
+}
+
+.search-modal[open]::backdrop,
+.filters-modal[open]::backdrop {
+  animation: backdrop-in 240ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .search-modal[open],
+  .filters-modal[open],
+  .search-modal[open]::backdrop,
+  .filters-modal[open]::backdrop {
+    animation: none;
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+
+@keyframes drawer-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.4);
+  }
+  60% {
+    transform: scale(1.35);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bump {
+  0%,
+  100% {
+    transform: none;
+  }
+  30% {
+    transform: translateY(-4px) rotate(-12deg);
+  }
+  60% {
+    transform: translateY(0) rotate(8deg);
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.cart-drawer[open] {
+  animation: drawer-in 340ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.cart-drawer[open]::backdrop {
+  animation: backdrop-in 240ms ease-out;
+}
+
+.animate-pop {
+  animation: pop 360ms ease-out;
+}
+
+.animate-bump {
+  animation: bump 520ms ease-in-out;
+}
+
+.animate-toast-in {
+  animation: toast-in 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.check-draw {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: draw 600ms 150ms ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cart-drawer[open],
+  .cart-drawer[open]::backdrop,
+  .animate-pop,
+  .animate-bump,
+  .animate-toast-in {
+    animation: none;
+  }
+
+  .check-draw {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-simple {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-primary) 45%, transparent)
+    transparent;
+}
+
+.plp:has([aria-busy="true"]) .plp-results {
+  opacity: 0.55;
+  pointer-events: none;
+  transition: opacity 150ms ease-out;
+}
+
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-hero-in {
+  animation: hero-in 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-in {
+    animation: none;
+  }
 }
